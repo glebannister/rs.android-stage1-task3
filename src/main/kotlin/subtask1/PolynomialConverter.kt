@@ -12,10 +12,6 @@ class PolynomialConverter {
         for (n in numbers.indices) {
             if (numbers[n] == 0) {
                 result += ""
-            } else if (numbers[n] == -1) {
-                result += " - " + "x"
-            } else if (numbers[n] == 1) {
-                result += " + " + "x"
             } else if (numbers[n] > 0) {
                 if (n == coef) {
                     result += " + " + numbers[n].absoluteValue.toString()
@@ -26,10 +22,12 @@ class PolynomialConverter {
                 } else {
                     result += " + " + numbers[n].absoluteValue.toString() + "x^" + (coef - n).toString()
                 }
-            } else if (numbers[n] < 0) {
+            } else if (numbers[n] < 0 && n == coef -1){
+                result += " - " + "x"
+            }
+            else if (numbers[n] < 0) {
                 result += " - " + numbers[n].absoluteValue.toString() + "x^" + (coef - n).toString()
             }
-
         }
         return result
     }
