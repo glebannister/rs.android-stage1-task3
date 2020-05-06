@@ -15,29 +15,6 @@ class FullBinaryTrees {
         if (0 == count%2){
             return "[]"
         }
-        if (7 == count){
-            return "[0,0,0,null,null,0,0,null,null,0,0]" +
-                    " " + "[0,0,0,null,null,0,0,0,0]" +
-                    " " + "[0,0,0,0,0,0,0]" +
-                    " " + "[0,0,0,0,0,null,null,null,null,0,0]" +
-                    " " + "[0,0,0,0,0,null,null,0,0]"
-        }
-        if (9 == count){
-            return "[0,0,0,null,null,0,0,null,null,0,0,null,null,0,0]" +
-                    " " + "[0,0,0,null,null,0,0,null,null,0,0,0,0]" +
-                    " " + "[0,0,0,null,null,0,0,0,0,0,0]" +
-                    " " + "[0,0,0,null,null,0,0,0,0,null,null,null,null,0,0]" +
-                    " " + "[0,0,0,null,null,0,0,0,0,null,null,0,0]" +
-                    " " + "[0,0,0,0,0,0,0,null,null,null,null,null,null,0,0]" +
-                    " " + "[0,0,0,0,0,0,0,null,null,null,null,0,0]" +
-                    " " + "[0,0,0,0,0,0,0,null,null,0,0]" +
-                    " " + "[0,0,0,0,0,0,0,0,0]" +
-                    " " + "[0,0,0,0,0,null,null,null,null,0,0,null,null,0,0]" +
-                    " " + "[0,0,0,0,0,null,null,null,null,0,0,0,0]" +
-                    " " + "[0,0,0,0,0,null,null,0,0,0,0]" +
-                    " " + "[0,0,0,0,0,null,null,0,0,null,null,null,null,0,0]" +
-                    " " + "[0,0,0,0,0,null,null,0,0,null,null,0,0]"
-        }
         val root = Row(count-1, null, arrayOf("0"))
         val kinds = children(root)
         var result: Array<String> = arrayOf()
@@ -56,7 +33,7 @@ class FullBinaryTrees {
     private fun children (parent: Row): Array<Row>{
         val count = parent.count
         if (0 == count){
-            return arrayOf(Row(0, perent = null, value = arrayOf()))
+            return arrayOf(Row(0, parent , arrayOf()))
         }
         val rowValue = parent.value
         val rowSize = rowValue.size - 1
@@ -68,7 +45,7 @@ class FullBinaryTrees {
                 } else {
                     resultRow = duplicate(resultRow)
                 }
-                for (j in 0..(resultRow.size/2 -1)){//?
+                for (j in 0..(resultRow.size/2 -1)){
                     if (1 < resultRow[j*2].count){
                         resultRow[j*2].value += arrayOf("0", "0")
                         resultRow[j*2].count -= 2
