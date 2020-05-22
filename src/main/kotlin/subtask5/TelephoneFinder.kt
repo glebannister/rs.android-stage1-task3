@@ -1,12 +1,11 @@
 package subtask5
 
-import kotlin.reflect.KClass
 
 class TelephoneFinder {
 
 
     fun findAllNumbersFromGivenNumber(number: String): Array<String>? {
-        val couples = mapOf(
+        val numberCouples = mapOf(
             '0' to arrayOf("8"),
             '1' to arrayOf("2","4"),
             '2' to arrayOf("1", "3", "5"),
@@ -18,15 +17,14 @@ class TelephoneFinder {
             '8' to arrayOf("5", "7", "9", "0"),
             '9' to arrayOf("6", "8"))
         val result = mutableListOf<String>()
-
         for (i in number.indices){
             val forReplace = number[i]
-            if (!couples.containsKey(forReplace)) {
+            if (number[i].equals('-')){
                 return null
             }
-            for (j in couples.getValue(forReplace)){
-                result.add(number.substring(0, i) + j + number.substring(i + 1, number.length))
-            }
+                for (j in numberCouples.getValue(forReplace)) {
+                    result.add(number.substring(0, i) + j + number.substring(i + 1, number.length))
+                }
         }
         return result.toTypedArray()
     }

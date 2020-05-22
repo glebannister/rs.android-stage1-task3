@@ -4,21 +4,21 @@ class Combinator {
 
 
     fun checkChooseFromArray(array: Array<Int>): Int? {
-        val zero = array[0]
-        val one = array[1]
-        for (n in 0..(one/2)){
-            if (zero*factorial(n)*factorial(one-n) == factorial(one)){
+        val first = array[0]
+        val second = array[1]
+        for (n in 0..(second/2)){
+            if (first * factorialFun(n) * factorialFun(second - n) == factorialFun(second)){
                 return n
             }
         }
         return null
     }
-    private fun factorial (i:Int):Int{
+    private fun factorialFun (i:Int):Int{
         if ((i == 0) or (i == 1)) return 1
-        var factorl = 1
+        var factorial = 1
         for(j in 1..i){
-            factorl*=j
+            factorial *= j
         }
-        return factorl
+        return factorial
     }
 }

@@ -2,33 +2,40 @@ package subtask3
 
 import kotlin.math.absoluteValue
 
-class ArrayCalculator {
+
+ class ArrayCalculator {
+
 
 
     fun maxProductOf(numberOfItems: Int, itemsFromArray: Array<Any>): Int {
-        var itemsInt =itemsFromArray.filterIsInstance<Int>()
-        var productItems = itemsInt.sortedBy { it.absoluteValue }.reversed()
+        val itemsInt = itemsFromArray.filterIsInstance<Int>()
+        val productItems = itemsInt.sortedBy { it.absoluteValue }.reversed()
         var result = 1
         if (productItems.isEmpty()){
             return 0
         }
         if (productItems.size <= numberOfItems){
             for (i in productItems){
-                result*=i
+                result *= i
             }
             return result
         }
-        val positiveItem = productItems.filter { it -> it >=0 }
-        var positiveResult = 1
         for (i in 0 until numberOfItems){
-            result*=productItems[i]
+            result *= productItems[i]
         }
-        for (i in 0 until numberOfItems){
-            positiveResult *= positiveItem[i]
-        }
-
+        val positiveResult:Int = countPositiveResult(numberOfItems, itemsFromArray)
         if (positiveResult > result){
             return positiveResult
+        }
+        return result
+    }
+    private fun countPositiveResult (numberOfItems: Int, itemsFromArray: Array<Any>) : Int{
+        val itemsInt = itemsFromArray.filterIsInstance<Int>()
+        val productItems = itemsInt.sortedBy { it.absoluteValue }.reversed()
+        val positiveItem = productItems.filter { it >= 0 }
+        var result = 1
+        for (i in 0 until numberOfItems){
+            result *= positiveItem[i]
         }
         return result
     }

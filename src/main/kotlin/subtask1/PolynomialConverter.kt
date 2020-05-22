@@ -13,14 +13,19 @@ class PolynomialConverter {
             if (numbers[n] == 0) {
                 result += ""
             } else if (numbers[n] > 0) {
-                if (n == coef) {
-                    result += " + " + numbers[n].absoluteValue.toString()
-                } else if (n == coef - 1) {
-                    result += " + " + numbers[n].absoluteValue.toString() + "x"
-                } else if (numbers[n] == numbers.first()) {
-                    result += numbers[n].absoluteValue.toString() + "x^" + (coef).toString()
-                } else {
-                    result += " + " + numbers[n].absoluteValue.toString() + "x^" + (coef - n).toString()
+                when {
+                    n == coef -> {
+                        result += " + " + numbers[n].absoluteValue.toString()
+                    }
+                    n == coef - 1 -> {
+                        result += " + " + numbers[n].absoluteValue.toString() + "x"
+                    }
+                    numbers[n] == numbers.first() -> {
+                        result += numbers[n].absoluteValue.toString() + "x^" + (coef).toString()
+                    }
+                    else -> {
+                        result += " + " + numbers[n].absoluteValue.toString() + "x^" + (coef - n).toString()
+                    }
                 }
             } else if (numbers[n] < 0 && n == coef -1){
                 result += " - " + "x"

@@ -9,66 +9,66 @@ class FullBinaryTrees {
         if (1 > count){
             return "[]"
         }
-        if (count == 1){
-            return "[[0]]"
-        }
         if (0 == count%2){
             return "[]"
         }
-        val root = Row(count-1, null, arrayOf("0"))
-        val kinds = children(root)
+        val root = Row(count - 1, null, arrayOf("0"))
+        val kinds = findChildren(root)
         var result: Array<String> = arrayOf()
-        for (kind in kinds){
+        for (k in kinds){
             var row: Array<String> = arrayOf()
-            var node:Row? = kind
+            var node:Row? = k
             while (null != node){
                 row = node.value + row
                 node = node.perent
             }
             result += arrayOf("[" + row.joinToString (",") + "]")
+            result.forEach { println("result ${it}") }
         }
         return "[" + result.joinToString(" ") + "]"
     }
 
-    private fun children (parent: Row): Array<Row>{
-        val count = parent.count
+    private fun findChildren (root: Row): Array<Row>{
+        val count = root.count
         if (0 == count){
-            return arrayOf(Row(0, parent , arrayOf()))
+            return arrayOf(Row(0, root , arrayOf()))
         }
-        val rowValue = parent.value
+        val rowValue = root.value
         val rowSize = rowValue.size - 1
+        println(rowSize)
         var resultRow: Array<Row> = arrayOf()
         for (i in 0..rowSize){
             if ("0" == rowValue[i]){
                 if (resultRow.isEmpty()){
-                    resultRow += arrayOf(Row(count, parent)) + arrayOf(Row(count, parent))
+                    resultRow += arrayOf(Row(count, root)) + arrayOf(Row(count, root))
                 } else {
-                    resultRow = duplicate(resultRow)
+                    resultRow = duplicateRow(resultRow)
                 }
-                for (j in 0..(resultRow.size/2 -1)){
-                    if (1 < resultRow[j*2].count){
+                for (j in 0 until resultRow.size/2){
+                    println("result row size: ${resultRow.size}")
+                    if ( 1 < resultRow[j*2].count){
                         resultRow[j*2].value += arrayOf("0", "0")
                         resultRow[j*2].count -= 2
-                        resultRow[j*2 + 1].value = arrayOf("null", "null")
+                        resultRow[j*2 + 1].value += arrayOf("null", "null")
                     }
                 }
             }
         }
         var withChild: Array<Row> = arrayOf()
         for (rez in resultRow){
-            if (2>rez.count){
+            if (2 > rez.count){
                 if (rez.value.isNotEmpty()){
                     withChild += rez
                 }
             } else {
-                withChild += children(rez)
+                withChild += findChildren(rez)
             }
         }
         return withChild
     }
 
-    private fun duplicate(rowArray: Array<Row>): Array<Row>{
-        var newRow:Array<Row> = arrayOf()
+    private fun duplicateRow(rowArray: Array<Row>): Array<Row>{
+        var newRow = arrayOf<Row>()
         for (r in rowArray){
             newRow += r
             if (0 == r.count){
